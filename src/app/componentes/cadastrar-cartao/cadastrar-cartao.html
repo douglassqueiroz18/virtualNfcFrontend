@@ -1,0 +1,9 @@
+<div class="container">
+  <div *ngIf="!showMidiasSociais" class="cadastro-section">
+    <h1>Bem-vindo</h1>
+    <p>Para continuar, clique no botão abaixo para se tornar um cliente.</p>
+    <button (click)="beClienteClick()" class="btn-seja-cliente">Seja Cliente</button>
+  </div>
+
+  <midias-sociais *ngIf="showMidiasSociais" (voltar)="voltarClick()"></midias-sociais>
+</div>

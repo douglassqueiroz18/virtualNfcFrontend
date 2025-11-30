@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>Seu Endereço</h2>
+  <p class="subtitle">Preencha os dados do seu endereço</p>
+
+  <form (ngSubmit)="save()" class="form">
+    <div class="input-group" *ngFor="let field of campos" [@fadeIn]>
+      <label>{{ field.label }}</label>
+
+      <div class="input-box">
+        <i class="icon" [class]="field.icon"></i>
+        <input
+          type="text"
+          [placeholder]="field.placeholder"
+          [value]="getEnderecoValue(field.key)"
+          (input)="setEnderecoValue(field.key, $any($event).target.value)"
+          [name]="field.key"
+        />
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-primary">Salvar</button>
+      <button type="button" class="btn-secondary" (click)="voltarClick()">Voltar</button>
+    </div>
+  </form>
+</div>

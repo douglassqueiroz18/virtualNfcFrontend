@@ -1,0 +1,29 @@
+<div class="view-wrapper" *ngIf="data">
+    <div class="card animate">
+
+        <button class="back-button" (click)="goBack()" title="Voltar ao Cadastro">
+            <i class="ri-arrow-left-line"></i> </button>
+
+        <h1 class="title">Suas Redes Sociais</h1>
+        <p class="subtitle">Este é o seu cartão digital. Clique para visitar seus links!</p>
+
+
+        <div class="icon-grid" *ngIf="data.type === 'social'">
+            <ng-container *ngFor="let key of keys(data.payload)">
+
+
+                <a *ngIf="data.payload[key] && data.payload[key].trim().length > 0"
+                    class="icon-item"
+                    [href]="data.payload[key]"
+                    target="_blank"
+                    [title]="key">
+
+
+                    <i class="{{ getIconName(key) }}"></i> <span class="icon-name">{{ key }}</span>
+                </a>
+
+
+            </ng-container>
+        </div>
+    </div>
+</div>

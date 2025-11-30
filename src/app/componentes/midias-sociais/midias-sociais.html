@@ -1,0 +1,51 @@
+<div class="container">
+
+  <h2>Suas Redes Sociais</h2>
+  <p class="subtitle">Preencha os links que farão parte do seu cartão NFC</p>
+
+  <form (ngSubmit)="save()" class="form">
+
+    <!-- Instagram: pedir apenas o username (ex: usuario) -->
+    <div class="input-group" [@fadeIn]>
+      <label>Instagram (usuário)</label>
+      <div class="input-box">
+        <i class="icon ri-instagram-line"></i>
+        <input
+          type="text"
+          placeholder="seu_usuario"
+          [(ngModel)]="instagramUsername"
+          name="instagramUsername"
+        />
+      </div>
+    </div>
+
+    <!-- WhatsApp: pedir DDD e número separadamente para facilitar a entrada -->
+    <div class="input-group" [@fadeIn]>
+      <label>WhatsApp (DDD e número)</label>
+      <div class="input-box" style="display:flex; gap:8px;">
+        <input type="text" placeholder="DDD" [(ngModel)]="whatsappDDD" name="whatsappDDD" style="width:80px;" />
+        <input type="text" placeholder="Número" [(ngModel)]="whatsappNumber" name="whatsappNumber" />
+      </div>
+    </div>
+
+    <div class="input-group" *ngFor="let field of socialFields" [@fadeIn]>
+      <label>{{ field.label }}</label>
+
+      <div class="input-box">
+        <i class="icon" [class]="field.icon"></i>
+        <input
+          type="url"
+          [placeholder]="field.placeholder"
+          [value]="getSocialValue(field.key)"
+          (input)="setSocialValue(field.key, $any($event).target.value)"
+          [name]="field.key"
+        />
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-primary">Salvar</button>
+      <button type="button" class="btn-secondary" (click)="voltarClick()">Voltar</button>
+    </div>
+  </form>
+</div>
