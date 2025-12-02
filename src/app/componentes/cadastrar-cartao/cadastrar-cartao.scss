@@ -1,45 +1,295 @@
-.container {
-  width: 100%;
+// =====================================================
+// PALHETA BASEADA NA LOGO
+// =====================================================
+$preto: #000;
+$grafite1: #111;
+$grafite2: #1c1c1c;
+$grafite3: #262626;
+$branco: #fff;
+
+// =====================================================
+// FUNDO ANIMADO COM GRADIENTE FLUIDO
+// =====================================================
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.view-wrapper {
+  min-height: 100vh;
+  width: 100vw; // 👈 garante que o fundo cobre TUDO
+
   display: flex;
-  justify-content: center;
+  flex-direction: column; // 👈 ISSO AQUI resolve o problema
+  justify-content: flex-start;
   align-items: center;
+  padding: 0;
+  overflow-x: hidden;            // 👈 remove barra lateral horizontal
+
+  background: linear-gradient(130deg, $preto, $grafite1, $grafite2, $grafite3);
+  background-size: 300% 300%;
+  animation: gradientFlow 12s ease infinite;
+
+  color: $branco;
 }
 
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// =====================================================
+// CARD COM EFEITO VIDRO E BRILHO PULSANTE
+// =====================================================
 .cadastro-section {
   text-align: center;
-  padding: 40px 20px;
-  max-width: 500px;
+  max-width: 480px;
+  padding: 40px 30px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.06);
+  animation: glowPulse 4s ease-in-out infinite;
+  margin-top: 40px;
+  margin-bottom: 40px;   // 👈 evita que o conteúdo cole no final da página
 
   h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
   }
 
   p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 35px;
     line-height: 1.6;
   }
 }
 
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  }
+}
+
+// =====================================================
+// BOTÃO COM ANIMAÇÃO DE BORDA LUMINOSA
+// =====================================================
 .btn-seja-cliente {
-  background-color: #007bff;
-  color: white;
+  width: 100%;
+  padding: 14px 30px;
+  border-radius: 10px;
   border: none;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border-radius: 5px;
+
+  background: transparent;
+  color: $branco;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+
+  // borda neon animada
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(120deg, #fff, #999, #fff);
+    background-size: 200% 200%;
+    animation: borderMove 3s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
 
   &:hover {
-    background-color: #0056b3;
+    transform: scale(1.03);
   }
 
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
+  }
+}
+
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+// =====================================================
+// CARTÃO NFC ANIMADO
+// =====================================================
+.nfc-card {
+  width: 110px;
+  height: 150px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  position: relative;
+  animation: floatCard 4s ease-in-out infinite;
+
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.06);
+}
+
+@keyframes floatCard {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// Ícone NFC animado
+.nfc-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: pulseNFC 2s infinite ease-out;
+  }
+
+  &:after {
+    animation-delay: 0.7s;
+  }
+}
+
+@keyframes pulseNFC {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.top-header {
+  width: 100%;
+  padding: 25px 20px;   // 👈 reduzido para não “empurrar” a tela
+  text-align: center;
+  box-sizing: border-box;
+
+  background: linear-gradient(135deg, #0c0c0d, #18181c, #101013);
+  background-size: 300% 300%;
+  animation: headerGlow 12s ease infinite;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+
+  .brand-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+
+    text-shadow: 0px 0px 14px rgba(89, 197, 255, 0.9), 0px 0px 25px rgba(89, 197, 255, 0.5);
+    margin-bottom: 8px;
+  }
+
+  .brand-subtitle {
+    font-size: 1rem;
+    color: rgba(210, 230, 255, 0.8);
+    letter-spacing: 0.8px;
+
+    animation: subtitleFade 4s ease-in-out infinite alternate;
+  }
+
+  /* Linhas tecnológicas decorativas (futuristic lines) */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 140px;
+    background: linear-gradient(90deg, transparent, #59c5ff, transparent);
+    top: 0;
+    animation: scanMove 6s linear infinite;
+    opacity: 0.6;
+  }
+
+  &::after {
+    top: unset;
+    bottom: 0;
+    animation-delay: 3s;
+  }
+}
+
+/* ANIMAÇÕES */
+@keyframes headerGlow {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@keyframes subtitleFade {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scanMove {
+  0% {
+    left: -150px;
+  }
+  100% {
+    left: 100%;
   }
 }

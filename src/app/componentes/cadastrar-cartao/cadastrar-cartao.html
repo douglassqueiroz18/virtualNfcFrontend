@@ -1,9 +1,30 @@
-<div class="container">
-  <div *ngIf="!showMidiasSociais" class="cadastro-section">
-    <h1>Bem-vindo</h1>
-    <p>Para continuar, clique no botão abaixo para se tornar um cliente.</p>
-    <button (click)="beClienteClick()" class="btn-seja-cliente">Seja Cliente</button>
+<div class="view-wrapper">
+
+<header class="top-header">
+  <h2 class="brand-title">Bem-vindo à Virtual NFC</h2>
+  <span class="brand-subtitle">
+    Conecte pessoas ao seu mundo com um toque.
+  </span>
+</header>
+
+
+  <!-- CARTÃO NFC ANIMADO -->
+  <div class="nfc-card">
+    <div class="nfc-icon"></div>
   </div>
 
-  <midias-sociais *ngIf="showMidiasSociais" (voltar)="voltarClick()"></midias-sociais>
+  <div *ngIf="!showMidiasSociais" class="cadastro-section">
+    <h1>Seu cartão digital começa aqui</h1>
+    <p>Para gerar seu cartão NFC exclusivo, clique no botão abaixo.</p>
+
+    <button (click)="beClienteClick()" class="btn-seja-cliente">
+      Criar meu protótipo agora
+    </button>
+  </div>
+
+  <midias-sociais
+    *ngIf="showMidiasSociais"
+    (voltar)="voltarClick()">
+  </midias-sociais>
+
 </div>

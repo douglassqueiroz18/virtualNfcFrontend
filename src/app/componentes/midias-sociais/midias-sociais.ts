@@ -4,7 +4,7 @@ import { PageService } from '../../services/page.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Social } from '../../interfaces/social';
-import {trigger,transition,style,animate} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'midias-sociais',
@@ -15,12 +15,11 @@ import {trigger,transition,style,animate} from '@angular/animations';
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate('350ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ])
+        animate('350ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
   ],
-  imports: [CommonModule, FormsModule] // <--- AQUI!
-
+  imports: [CommonModule, FormsModule], // <--- AQUI!
 })
 export class midiasSociais {
   @Output() voltar = new EventEmitter<void>();
@@ -33,7 +32,7 @@ export class midiasSociais {
     linkedin: '',
     tiktok: '',
     youtube: '',
-    site: ''
+    site: '',
   };
 
   // campos auxiliares para entrada simplificada
@@ -42,13 +41,32 @@ export class midiasSociais {
   whatsappNumber = '';
 
   socialFields = [
-    { key: 'facebook', label: 'Facebook', placeholder: 'https://facebook.com/...', icon: 'ri-facebook-circle-line' },
-    { key: 'linkedin', label: 'LinkedIn', placeholder: 'https://linkedin.com/in/...', icon: 'ri-linkedin-line' },
-    { key: 'tiktok', label: 'TikTok', placeholder: 'https://tiktok.com/@...', icon: 'ri-tiktok-fill' },
-    { key: 'youtube', label: 'YouTube', placeholder: 'https://youtube.com/@...', icon: 'ri-youtube-line' },
-    { key: 'site', label: 'Site', placeholder: 'Seu site...', icon: 'ri-global-line' }
+    {
+      key: 'facebook',
+      label: 'Facebook',
+      placeholder: 'https://facebook.com/...',
+      icon: 'ri-facebook-circle-line',
+    },
+    {
+      key: 'linkedin',
+      label: 'LinkedIn',
+      placeholder: 'https://linkedin.com/in/...',
+      icon: 'ri-linkedin-line',
+    },
+    {
+      key: 'tiktok',
+      label: 'TikTok',
+      placeholder: 'https://tiktok.com/@...',
+      icon: 'ri-tiktok-fill',
+    },
+    {
+      key: 'youtube',
+      label: 'YouTube',
+      placeholder: 'https://youtube.com/@...',
+      icon: 'ri-youtube-line',
+    },
+    { key: 'site', label: 'Site', placeholder: 'Seu site...', icon: 'ri-global-line' },
   ];
-
 
   save() {
     // Normaliza os campos conforme a entrada simplificada do usuário
@@ -98,4 +116,27 @@ export class midiasSociais {
   setSocialValue(key: string, value: string): void {
     this.social[key as keyof Social] = value;
   }
+  onDDDChange(event: any, numeroInput: HTMLInputElement) {
+    const valor = event.target.value.replace(/\D/g, ''); // mantém só números
+    this.whatsappDDD = valor.slice(0, 2); // agora limita para 2 dígitos
+
+    // Quando completar 2 dígitos, pula automaticamente
+    if (this.whatsappDDD.length === 2) {
+      numeroInput.focus();
+    }
+  }
+  onPhoneChange(event: any, nextElement: HTMLElement) {
+  let valor = event.target.value.replace(/\D/g, '');
+  valor = valor.slice(0, 9);
+
+  if (valor.length > 5) {
+    this.whatsappNumber = `${valor[0]} ${valor.slice(1, 5)}-${valor.slice(5)}`;
+  } else if (valor.length > 1) {
+    this.whatsappNumber = `${valor[0]} ${valor.slice(1)}`;
+  } else {
+    this.whatsappNumber = valor;
+  }
+
+  if (valor.length === 9) nextElement.focus();
+}
 }

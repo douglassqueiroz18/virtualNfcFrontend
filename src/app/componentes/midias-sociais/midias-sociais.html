@@ -5,7 +5,7 @@
 
   <form (ngSubmit)="save()" class="form">
 
-    <!-- Instagram: pedir apenas o username (ex: usuario) -->
+    <!-- Instagram -->
     <div class="input-group" [@fadeIn]>
       <label>Instagram (usuário)</label>
       <div class="input-box">
@@ -19,15 +19,38 @@
       </div>
     </div>
 
-    <!-- WhatsApp: pedir DDD e número separadamente para facilitar a entrada -->
+    <!-- WhatsApp -->
     <div class="input-group" [@fadeIn]>
       <label>WhatsApp (DDD e número)</label>
+
       <div class="input-box" style="display:flex; gap:8px;">
-        <input type="text" placeholder="DDD" [(ngModel)]="whatsappDDD" name="whatsappDDD" style="width:80px;" />
-        <input type="text" placeholder="Número" [(ngModel)]="whatsappNumber" name="whatsappNumber" />
+
+        <!-- DDD -->
+        <input
+          type="text"
+          placeholder="DDD"
+          [(ngModel)]="whatsappDDD"
+          name="whatsappDDD"
+          style="width:80px;"
+          maxlength="2"
+          (input)="onDDDChange($event, numeroInput)"
+        />
+
+        <!-- Número com máscara -->
+        <input
+          type="text"
+          placeholder="Número"
+          [(ngModel)]="whatsappNumber"
+          name="whatsappNumber"
+          #numeroInput
+          maxlength="11"
+          (input)="onPhoneChange($event, proximoCampo)"
+        />
+
       </div>
     </div>
 
+    <!-- Outros campos -->
     <div class="input-group" *ngFor="let field of socialFields" [@fadeIn]>
       <label>{{ field.label }}</label>
 
@@ -43,9 +66,13 @@
       </div>
     </div>
 
+    <!-- Campo invisível apenas para auto-pular -->
+    <input #proximoCampo type="text" style="opacity:0; position:absolute; pointer-events:none;" />
+
     <div class="button-group">
       <button type="submit" class="btn-primary">Salvar</button>
       <button type="button" class="btn-secondary" (click)="voltarClick()">Voltar</button>
     </div>
+
   </form>
 </div>
