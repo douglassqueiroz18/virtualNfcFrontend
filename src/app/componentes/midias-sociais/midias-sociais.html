@@ -5,17 +5,20 @@
 
   <form (ngSubmit)="save()" class="form">
 
+
+
+    <div class="input-group" [@fadeIn]>
+      <label>Nome do Cartão</label>
+      <div class="input-box">
+        <input type="text" placeholder="Nome do Cartão" [(ngModel)]="social.nomeCartao" name="nomeCartao" />
+      </div>
+    </div>
     <!-- Instagram -->
     <div class="input-group" [@fadeIn]>
       <label>Instagram (usuário)</label>
       <div class="input-box">
         <i class="icon ri-instagram-line"></i>
-        <input
-          type="text"
-          placeholder="seu_usuario"
-          [(ngModel)]="instagramUsername"
-          name="instagramUsername"
-        />
+        <input type="text" placeholder="seu_usuario" [(ngModel)]="instagramUsername" name="instagramUsername" />
       </div>
     </div>
 
@@ -26,26 +29,12 @@
       <div class="input-box" style="display:flex; gap:8px;">
 
         <!-- DDD -->
-        <input
-          type="text"
-          placeholder="DDD"
-          [(ngModel)]="whatsappDDD"
-          name="whatsappDDD"
-          style="width:80px;"
-          maxlength="2"
-          (input)="onDDDChange($event, numeroInput)"
-        />
+        <input type="text" placeholder="DDD" [(ngModel)]="whatsappDDD" name="whatsappDDD" style="width:80px;"
+          maxlength="2" (input)="onDDDChange($event, numeroInput)" />
 
         <!-- Número com máscara -->
-        <input
-          type="text"
-          placeholder="Número"
-          [(ngModel)]="whatsappNumber"
-          name="whatsappNumber"
-          #numeroInput
-          maxlength="11"
-          (input)="onPhoneChange($event, proximoCampo)"
-        />
+        <input type="text" placeholder="Número" [(ngModel)]="whatsappNumber" name="whatsappNumber" #numeroInput
+          maxlength="11" (input)="onPhoneChange($event, proximoCampo)" />
 
       </div>
     </div>
@@ -56,13 +45,8 @@
 
       <div class="input-box">
         <i class="icon" [class]="field.icon"></i>
-        <input
-          type="url"
-          [placeholder]="field.placeholder"
-          [value]="getSocialValue(field.key)"
-          (input)="setSocialValue(field.key, $any($event).target.value)"
-          [name]="field.key"
-        />
+        <input type="url" [placeholder]="field.placeholder" [value]="getSocialValue(field.key)"
+          (input)="setSocialValue(field.key, $any($event).target.value)" [name]="field.key" />
       </div>
     </div>
 
@@ -70,9 +54,15 @@
     <input #proximoCampo type="text" style="opacity:0; position:absolute; pointer-events:none;" />
 
     <div class="button-group">
-      <button type="submit" class="btn-primary">Salvar</button>
+      <button type="submit" class="btn-primary">Criar</button>
       <button type="button" class="btn-secondary" (click)="voltarClick()">Voltar</button>
     </div>
 
   </form>
+  <!-- NOVO: Botão mostrar protótipo -->
+  <div *ngIf="prototipoId" class="button-group" style="margin-top:20px;">
+    <button class="btn-primary" (click)="verPrototipo(prototipoId)">
+      Ver Protótipo do Cartão
+    </button>
+  </div>
 </div>

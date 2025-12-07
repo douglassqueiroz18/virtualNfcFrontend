@@ -1,0 +1,40 @@
+<div class="cards-wrapper">
+
+  <h2 class="title">Seus Cartões</h2>
+
+  <div *ngIf="loading" class="loading">Carregando cartões...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="list" *ngIf="!loading && !error">
+
+    <div class="card-item" *ngFor="let card of cards" [@fadeCard]>
+
+      <div class="card-glow"></div>
+
+      <div class="header">
+        <div class="info-left">
+          <h3 class="card-title">{{ card.nomeCartao }}</h3>
+          <span class="id">#{{ card.id }}</span>
+        </div>
+      </div>
+
+      <div class="info">
+        <p><strong>Instagram:</strong> {{ card.instagram }}</p>
+        <p><strong>WhatsApp:</strong> {{ card.whatsapp }}</p>
+        <p><strong>Facebook:</strong> {{ card.facebook }}</p>
+        <p><strong>LinkedIn:</strong> {{ card.linkedin }}</p>
+        <p><strong>TikTok:</strong> {{ card.tiktok }}</p>
+        <p><strong>YouTube:</strong> {{ card.youtube }}</p>
+        <p><strong>Site:</strong> {{ card.site }}</p>
+      </div>
+
+      <div class="actions">
+        <button class="delete-btn" (click)="deleteCard(card.id)">
+          🗑️ Excluir
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

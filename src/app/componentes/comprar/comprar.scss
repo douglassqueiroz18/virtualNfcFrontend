@@ -1,0 +1,100 @@
+
+.purchase-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #141518, #1b1c22, #101115);
+  background-size: 200% 200%;
+  animation: bgMove 10s ease infinite;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.purchase-card {
+  max-width: 420px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.purchase-card h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.info-text {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.prototype-box {
+  margin-top: 20px;
+  background: rgba(255, 180, 180, 0.15);
+  border: 1px solid rgba(255, 150, 150, 0.4);
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.price-box {
+  margin: 25px 0;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: bold;
+  display: block;
+}
+
+.desc {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.btn-buy {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  background: #00d26a;
+  color: black;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-buy:hover {
+  background: #00ff80;
+}
+
+.btn-back {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+

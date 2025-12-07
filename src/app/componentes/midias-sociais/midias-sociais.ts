@@ -1,6 +1,6 @@
+import { endPointService } from './../../endpointsService';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { PageService } from '../../services/page.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Social } from '../../interfaces/social';
@@ -19,13 +19,20 @@ import { trigger, transition, style, animate } from '@angular/animations';
       ]),
     ]),
   ],
-  imports: [CommonModule, FormsModule], // <--- AQUI!
+  imports: [CommonModule, FormsModule],
 })
 export class midiasSociais {
   @Output() voltar = new EventEmitter<void>();
-  constructor(private pageService: PageService, private router: Router) {}
+
+  constructor(
+    private router: Router,
+    private endPointService: endPointService
+  ) {}
+
+  prototipoId: number | null = null;
 
   social: Social = {
+    nomeCartao: '',
     instagram: '',
     whatsapp: '',
     facebook: '',
@@ -35,75 +42,69 @@ export class midiasSociais {
     site: '',
   };
 
-  // campos auxiliares para entrada simplificada
   instagramUsername = '';
   whatsappDDD = '';
   whatsappNumber = '';
 
   socialFields = [
-    {
-      key: 'facebook',
-      label: 'Facebook',
-      placeholder: 'https://facebook.com/...',
-      icon: 'ri-facebook-circle-line',
-    },
-    {
-      key: 'linkedin',
-      label: 'LinkedIn',
-      placeholder: 'https://linkedin.com/in/...',
-      icon: 'ri-linkedin-line',
-    },
-    {
-      key: 'tiktok',
-      label: 'TikTok',
-      placeholder: 'https://tiktok.com/@...',
-      icon: 'ri-tiktok-fill',
-    },
-    {
-      key: 'youtube',
-      label: 'YouTube',
-      placeholder: 'https://youtube.com/@...',
-      icon: 'ri-youtube-line',
-    },
+    { key: 'facebook', label: 'Facebook', placeholder: 'https://facebook.com/...', icon: 'ri-facebook-circle-line' },
+    { key: 'linkedin', label: 'LinkedIn', placeholder: 'https://linkedin.com/in/...', icon: 'ri-linkedin-line' },
+    { key: 'tiktok', label: 'TikTok', placeholder: 'https://tiktok.com/@...', icon: 'ri-tiktok-fill' },
+    { key: 'youtube', label: 'YouTube', placeholder: 'https://youtube.com/@...', icon: 'ri-youtube-line' },
     { key: 'site', label: 'Site', placeholder: 'Seu site...', icon: 'ri-global-line' },
   ];
 
   save() {
-    // Normaliza os campos conforme a entrada simplificada do usuário
-    const defaultCountry = '55'; // ajuste conforme necessário
+    const defaultCountry = '55';
 
-    const payload: any = { ...this.social };
+    const dto: any = {
+      type: 'social',
+      nomeCartao: this.social.nomeCartao,
+      instagram: '',
+      whatsapp: '',
+      facebook: this.social.facebook,
+      linkedin: this.social.linkedin,
+      tiktok: this.social.tiktok,
+      youtube: this.social.youtube,
+      site: this.social.site,
+    };
 
-    // Instagram: monta URL a partir do username, se fornecido
-    if (this.instagramUsername && this.instagramUsername.trim()) {
-      const username = this.instagramUsername.trim().replace(/^@/, '');
-      payload.instagram = `https://instagram.com/${username}`;
-    } else if (payload.instagram && payload.instagram.trim()) {
-      // mantém campo caso já tenha sido preenchido diretamente
-    } else {
-      payload.instagram = '';
+    // Instagram
+    if (this.instagramUsername.trim()) {
+      dto.instagram = `https://instagram.com/${this.instagramUsername.replace(/^@/, '')}`;
     }
 
-    // WhatsApp: monta link a partir de DDD + número (apenas dígitos)
+    // WhatsApp
     const ddd = (this.whatsappDDD || '').replace(/\D/g, '');
     const num = (this.whatsappNumber || '').replace(/\D/g, '');
-    if (ddd && num) {
-      // assumimos código de país default (ex.: Brasil = 55)
-      payload.whatsapp = `https://wa.me/${defaultCountry}${ddd}${num}`;
-    } else if (payload.whatsapp && payload.whatsapp.trim()) {
-      // mantém caso usuário tenha preenchido manualmente
-    } else {
-      payload.whatsapp = '';
-    }
+    dto.whatsapp = (ddd && num) ? `https://wa.me/${defaultCountry}${ddd}${num}` : '';
 
-    // cria a página e recupera o id
-    const id = this.pageService.createPage({ type: 'social', payload });
-    try {
-      this.router.navigate(['/pagina', id]);
-    } catch (e) {
-      console.warn('Não foi possível navegar:', e);
-    }
+    // envia para o backend
+    this.endPointService.createPagePrototipo(dto).subscribe((id: number) => {
+      console.log('Prototipo criado com ID:', id);
+      this.prototipoId = id; // agora exibe o botão
+    });
   }
+
+verPrototipo(card?: any) {
+  // Se o método receber o card pelo HTML, extrai o id dele
+  if (card && typeof card === 'object') {
+    this.prototipoId = card.id;
+  }
+
+  const numericId = Number(this.prototipoId);
+
+  console.log("ID resolvido:", numericId, "tipo:", typeof numericId);
+
+  if (!numericId || Number.isNaN(numericId)) {
+    console.error("ID inválido, não é possível abrir o protótipo.");
+    return;
+  }
+
+  window.open(`/paginaPrototipo/${numericId}`, '_blank');
+}
+
+
 
   voltarClick() {
     this.voltar.emit();
@@ -116,27 +117,24 @@ export class midiasSociais {
   setSocialValue(key: string, value: string): void {
     this.social[key as keyof Social] = value;
   }
+
   onDDDChange(event: any, numeroInput: HTMLInputElement) {
-    const valor = event.target.value.replace(/\D/g, ''); // mantém só números
-    this.whatsappDDD = valor.slice(0, 2); // agora limita para 2 dígitos
-
-    // Quando completar 2 dígitos, pula automaticamente
-    if (this.whatsappDDD.length === 2) {
-      numeroInput.focus();
-    }
+    const valor = event.target.value.replace(/\D/g, '');
+    this.whatsappDDD = valor.slice(0, 2);
+    if (this.whatsappDDD.length === 2) numeroInput.focus();
   }
+
   onPhoneChange(event: any, nextElement: HTMLElement) {
-  let valor = event.target.value.replace(/\D/g, '');
-  valor = valor.slice(0, 9);
+    let valor = event.target.value.replace(/\D/g, '').slice(0, 9);
 
-  if (valor.length > 5) {
-    this.whatsappNumber = `${valor[0]} ${valor.slice(1, 5)}-${valor.slice(5)}`;
-  } else if (valor.length > 1) {
-    this.whatsappNumber = `${valor[0]} ${valor.slice(1)}`;
-  } else {
-    this.whatsappNumber = valor;
+    if (valor.length > 5) {
+      this.whatsappNumber = `${valor[0]} ${valor.slice(1, 5)}-${valor.slice(5)}`;
+    } else if (valor.length > 1) {
+      this.whatsappNumber = `${valor[0]} ${valor.slice(1)}`;
+    } else {
+      this.whatsappNumber = valor;
+    }
+
+    if (valor.length === 9) nextElement.focus();
   }
-
-  if (valor.length === 9) nextElement.focus();
-}
 }

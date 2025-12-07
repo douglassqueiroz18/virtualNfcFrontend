@@ -1,16 +1,45 @@
 .view-wrapper {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column; /* <-- ESSENCIAL */
+  justify-content: flex-start;
+  align-items: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #1a202c, #2c3e50, #1a202c); /* Gradiente mais profundo e moderno */
+  background: linear-gradient(135deg, #1a202c, #2c3e50, #1a202c);
   background-size: 200% 200%;
-  animation: bgMove 20s ease infinite alternate; /* Animação mais suave e alternada */
+  animation: bgMove 20s ease infinite alternate;
   color: #e0e0e0;
-  font-family: 'Poppins', sans-serif; /* Fonte mais moderna, se disponível */
+  font-family: 'Poppins', sans-serif;
 }
-
+.card h2 {
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+.warning {
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.45);
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ff9b9b;
+  margin-bottom: 25px;
+  backdrop-filter: blur(8px);
+  animation: warnPulse 2.8s ease-in-out infinite;
+}
+@keyframes warnPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 90, 90, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255, 90, 90, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 90, 90, 0.2);
+  }
+}
 @keyframes bgMove {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
@@ -196,4 +225,40 @@
         grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas muito pequenas */
         gap: 15px;
     }
+
+}
+.buy-button {
+  margin: 20px auto;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  max-width: 500px; /* ← limita */
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.warning {
+  background: rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  color: #ffca2c;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
 }

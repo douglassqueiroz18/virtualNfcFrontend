@@ -1,0 +1,55 @@
+<div class="view-wrapper" *ngIf="!loading && page && page.payload">
+  <div class="card">
+
+
+
+    <h1 class="title">{{ page.payload.nomeCartao || 'Sem nome' }}</h1>
+
+    <p class="subtitle">Conecte-se comigo nas redes</p>
+
+    <div class="icon-grid">
+
+      <a *ngIf="page.payload.instagram" class="icon-item"
+         [href]="page.payload.instagram" target="_blank">
+        <i class="ri-instagram-line"></i>
+        <span class="icon-name">Instagram</span>
+      </a>
+
+      <a *ngIf="page.payload.whatsapp" class="icon-item"
+         [href]="page.payload.whatsapp" target="_blank">
+        <i class="ri-whatsapp-line"></i>
+        <span class="icon-name">WhatsApp</span>
+      </a>
+
+      <a *ngIf="page.payload.facebook" class="icon-item"
+         [href]="page.payload.facebook" target="_blank">
+        <i class="ri-facebook-circle-line"></i>
+        <span class="icon-name">Facebook</span>
+      </a>
+
+      <a *ngIf="page.payload.linkedin" class="icon-item"
+         [href]="page.payload.linkedin" target="_blank">
+        <i class="ri-linkedin-line"></i>
+        <span class="icon-name">LinkedIn</span>
+      </a>
+
+      <a *ngIf="page.payload.youtube" class="icon-item"
+         [href]="page.payload.youtube" target="_blank">
+        <i class="ri-youtube-line"></i>
+        <span class="icon-name">YouTube</span>
+      </a>
+
+      <a *ngIf="page.payload.site" class="icon-item"
+         [href]="page.payload.site" target="_blank">
+        <i class="ri-global-line"></i>
+        <span class="icon-name">Site</span>
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="!loading && isExpired" class="view-wrapper">
+  <h2>Cartão não encontrado ou expirado.</h2>
+</div>

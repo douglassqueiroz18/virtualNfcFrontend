@@ -8,6 +8,7 @@ export type SocialKeys =
   | 'site';
 
 export interface Social {
+  nomeCartao: string;
   instagram: string;
   whatsapp: string;
   facebook: string;
