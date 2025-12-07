@@ -67,6 +67,7 @@ export class midiasSociais {
       tiktok: this.social.tiktok,
       youtube: this.social.youtube,
       site: this.social.site,
+      prototipo: '1'
     };
 
     // Instagram

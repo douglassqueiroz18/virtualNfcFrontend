@@ -1,0 +1,60 @@
+<div class="checkout-wrapper">
+  <div class="checkout-card">
+    <h1>🛒 Finalização do Pedido</h1>
+
+    <div class="order-summary">
+      <p>Item: {{ productName }}</p>
+      <p class="total-price">
+        Total: R$ {{ productPrice | number:'1.2-2' }}
+      </p>
+    </div>
+
+    <div *ngIf="paymentStatus === 'success'" class="status-message success">
+      🎉 **Pagamento Confirmado!** Seu produto será ativado em instantes.
+    </div>
+
+    <div *ngIf="paymentStatus === 'error'" class="status-message error">
+      ❌ **Erro ao processar pagamento.** Tente novamente ou entre em contato.
+    </div>
+
+    <button
+      *ngIf="paymentStatus === 'initial' || paymentStatus === 'error'"
+      class="btn-primary"
+      (click)="generatePixPayment()"
+      [disabled]="isLoading"
+    >
+      {{ isLoading ? 'Gerando PIX...' : 'Gerar Pagamento PIX' }}
+    </button>
+
+    <div *ngIf="isLoading" class="status-message pending">
+      Aguarde, conectando ao PicPay...
+    </div>
+
+    <div *ngIf="picpayData && paymentStatus === 'pending'" class="payment-area">
+      <h2>Pague com PIX</h2>
+      <p>Use seu aplicativo PicPay ou outro banco para escanear o código:</p>
+
+      <div class="pix-qr-code">
+        <div class="qr-box">
+          [Image of PIX QR Code]
+          <br>
+          CÓDIGO AQUI
+        </div>
+
+        <div class="pix-link">
+          Ou clique para pagar:
+          <a [href]="picpayData.paymentUrl" target="_blank">Abrir App PicPay</a>
+        </div>
+
+        <p class="mt-3">Se preferir, use o código Pix Copia e Cola:</p>
+        <button class="btn-primary btn-copy" (click)="copyPixCode()">
+          📋 Copiar Código PIX
+        </button>
+      </div>
+
+      <div class="status-message pending">
+        ⏳ Aguardando confirmação do pagamento... (Verificação automática em andamento)
+      </div>
+    </div>
+  </div>
+</div>

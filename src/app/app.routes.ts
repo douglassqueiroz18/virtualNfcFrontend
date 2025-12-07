@@ -4,6 +4,8 @@ import { midiasSociais } from './componentes/midias-sociais/midias-sociais';
 import { paginaVisualizacao } from './componentes/paginaPrototipo/paginaPrototipo';
 import { Comprar } from './componentes/comprar/comprar';
 import { CardsComponent } from './componentes/cards/cards';
+import { AdmProdutos } from './componentes/adm-produtos/adm-produtos';
+import { FinalizarCompra } from './componentes/finalizar-compra/finalizar-compra';
 
 export const routes: Routes = [
   {
@@ -30,5 +32,13 @@ export const routes: Routes = [
   {
     path: 'cards',
     component: CardsComponent,
+  },
+  {
+    path: 'adm-produtos',
+    component: AdmProdutos,
+  },
+    {
+    path: 'finalizar-compra',
+    component: FinalizarCompra,
   }
 ];

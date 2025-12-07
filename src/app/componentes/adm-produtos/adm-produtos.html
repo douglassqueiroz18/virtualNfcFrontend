@@ -1,0 +1,38 @@
+<div class="adm-form">
+  <label for="nome">Nome do Produto</label>
+  <input id="nome" type="text" [(ngModel)]="currentProduct.nome" placeholder="Nome do produto">
+
+
+  <label for="preco">Preço</label>
+  <input id="preco" type="number" [(ngModel)]="currentProduct.preco" placeholder="Preço em R$">
+
+  <label for="descricao">Descrição</label>
+  <textarea id="descricao" [(ngModel)]="currentProduct.descricao" placeholder="Descrição opcional"></textarea>
+
+  <button class="btn-save" (click)="saveProduct()">Salvar</button>
+  <button class="btn-cancel" (click)="resetForm()">Cancelar</button>
+</div>
+<div class="product-list">
+  <h2>Lista de Produtos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Preço (R$)</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.nome }}</td>
+        <td>{{ product.preco | number:'1.2-2' }}</td>
+        <td>{{ product.descricao }}</td>
+        <td>
+          <button class="btn-edit" (click)="editProduct(product)">Editar</button>
+          <button class="btn-delete" (click)="deleteProduct(product.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> ```

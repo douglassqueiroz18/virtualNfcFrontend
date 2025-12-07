@@ -159,7 +159,7 @@
 /* Estilo para todos os ícones da biblioteca Remix Icon */
 .icon-item i {
   font-size: 48px; /* Ícones maiores */
-  color: #87ceeb; /* Cor padrão azul claro */
+  color: #eb9e87; /* Cor padrão azul claro */
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -261,4 +261,123 @@
   border-radius: 8px;
   font-size: 0.95rem;
   margin-bottom: 20px;
+}
+/* TIMER DIGITAL ESTILOSO */
+.timer-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  animation: fadeInTimer 0.8s ease-out forwards;
+}
+
+.timer-box {
+  background: rgba(182, 40, 40, 0.08);
+  border: 1px solid rgba(226, 226, 226, 0.35); /* Azul suave */
+  padding: 14px 22px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  box-shadow:
+      0 0 12px rgba(190, 65, 33, 0.4),
+      inset 0 0 12px rgba(202, 44, 17, 0.25);
+  animation: timerPulse 2s infinite ease-in-out;
+}
+
+.timer-label {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #ffcdcd;
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.timer-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #b81212; /* Azul claro */
+  font-family: 'Digital-7', monospace; /* opcional */
+  text-shadow: 0 0 10px rgba(252, 0, 0, 0.8);
+}
+
+/* ANIMAÇÕES */
+@keyframes timerPulse {
+  0% {
+    box-shadow:
+      0 0 8px rgba(135, 206, 235, 0.2),
+      inset 0 0 5px rgba(135, 206, 235, 0.15);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(255, 7, 7, 0.6),
+      inset 0 0 10px rgba(135, 206, 235, 0.3);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow:
+      0 0 8px rgba(135, 206, 235, 0.2),
+      inset 0 0 5px rgba(135, 206, 235, 0.15);
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInTimer {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.buy-top-button {
+  position: fixed;         /* Sempre visível */
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  z-index: 999;            /* Acima de tudo */
+  box-shadow:
+      0 4px 15px rgba(0,0,0,0.3),
+      inset 0 0 12px rgba(255,255,255,0.15);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.buy-top-button i {
+  font-size: 20px;
+}
+
+.buy-top-button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+      0 6px 18px rgba(0,0,0,0.45),
+      inset 0 0 12px rgba(255,255,255,0.25);
+}
+
+.buy-top-button:active {
+  transform: translateY(0);
+  box-shadow:
+      0 3px 10px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 600px) {
+  .buy-top-button {
+    top: 15px;
+    right: 15px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
 }
