@@ -17,6 +17,8 @@ export class endPointService {
   private baseUrlCreateProduct = 'http://localhost:8080/api/products/create';
   private baseUrlDeleteProduct = 'http://localhost:8080/api/products/delete';
   private baseUrlGetProductById = 'http://localhost:8080/api/products/get';
+  private baseUrlpagbank = 'http://localhost:8080/api/pagbank';
+
   constructor(private http: HttpClient) {}
 
   createPagePrototipo(dto: any): Observable<number> {
@@ -100,4 +102,11 @@ deleteProduct(id: number): Observable<HttpResponse<any>> {
     responseType: 'text' as 'json' // Mantém o 'responseType: text' (ajustado para funcionar com observe: 'response')
   });
 }
+  createPixPayment(data: any) {
+    data.value = Math.round(data.value * 100);
+    return this.http.post(`${this.baseUrlpagbank}/pix`, data);
+  }
+  checkStatus(chargeId: string): Observable<any> {
+    return this.http.get(`${this.baseUrlpagbank}/pix/${chargeId}`);
+  }
 }

@@ -1,16 +1,20 @@
 <div class="view-wrapper">
-
 <header class="top-header">
-  <h2 class="brand-title">Bem-vindo à Virtual NFC</h2>
-  <span class="brand-subtitle">
-    Conecte pessoas ao seu mundo com um toque.
-  </span>
+  <div class="brand-title-wrapper">
+    <h2 class="brand-title">{{ typedTitle }}</h2>
+  </div>
+
+  <div class="brand-subtitle-wrapper">
+    <span class="brand-subtitle">{{ currentMessage }}</span>
+  </div>
 </header>
+
 
 
   <!-- CARTÃO NFC ANIMADO -->
   <div class="nfc-card">
     <div class="nfc-icon"></div>
+    <p class="typing-text">Network Instantâneo</p>
   </div>
 
   <div *ngIf="!showMidiasSociais" class="cadastro-section">
@@ -22,9 +26,7 @@
     </button>
   </div>
 
-  <midias-sociais
-    *ngIf="showMidiasSociais"
-    (voltar)="voltarClick()">
+  <midias-sociais *ngIf="showMidiasSociais" (voltar)="voltarClick()">
   </midias-sociais>
 
 </div>

@@ -1,15 +1,12 @@
+import { endPointService } from './../../endpointsService';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { PicpayService } from './PicPayService';
 import { ActivatedRoute } from '@angular/router'; // 👈 Import necessário
 import { FormsModule } from '@angular/forms'; // Necessário para os imports do Componente de origem
+import { PagBankService } from '../../services/PagBankService';
 
 // Interface para a resposta da API PicPay (simplificada)
-interface PicpayResponse {
-  paymentUrl: string; // Link para pagamento (para o usuário)
-  qrCode: string;     // Conteúdo do PIX QR Code (para ser exibido)
-}
 
 @Component({
   selector: 'app-checkout',
@@ -24,16 +21,17 @@ export class FinalizarCompra implements OnInit {
   productName: string = 'Carregando...';
   productPrice: number = 0;
 
+  pagbankData: any = null;
+  chargeId: string = '';
   // Estado do Pagamento
   paymentStatus: 'pending' | 'success' | 'error' | 'initial' = 'initial';
   // Dados do PIX
-  picpayData: PicpayResponse | null = null;
   // Flag para controle do loader
   isLoading: boolean = false;
 
   // Injetar o PicpayService e o ActivatedRoute
   constructor(
-    private picpayService: PicpayService,
+    private endPointService: endPointService,
     private route: ActivatedRoute // 👈 Injeção para ler os parâmetros da URL
   ) {}
 
@@ -62,39 +60,32 @@ export class FinalizarCompra implements OnInit {
   /**
    * Simula a chamada à API do PicPay para gerar a transação PIX.
    */
-  generatePixPayment(): void {
-    if (this.productPrice <= 0) {
-        alert('Valor do produto inválido. Tente selecionar novamente.');
-        return;
-    }
+generatePixPayment(): void {
 
-    this.isLoading = true;
-    this.paymentStatus = 'pending';
-    this.picpayData = null;
+  const orderData = {
+    value: this.productPrice,
+    description: `Compra: ${this.productName}`,
+  };
 
-    // Dados que seriam enviados ao PicPay (usando os dados carregados da URL)
-    const orderData = {
-      value: this.productPrice, // Usando o preço carregado
-      description: `Compra: ${this.productName}`, // Usando o nome carregado
-      // Outros dados necessários
-    };
+  this.isLoading = true;
 
-    // Chama o serviço para criar o pagamento
-    this.picpayService.createPayment(orderData).subscribe({
-      next: (response: PicpayResponse) => {
-        this.picpayData = response;
-        this.isLoading = false;
-        this.paymentStatus = 'pending';
-        this.simulatePolling();
-      },
-      error: (err) => {
-        console.error('Erro ao gerar pagamento PIX:', err);
-        this.isLoading = false;
-        this.paymentStatus = 'error';
-        this.picpayData = null;
-      }
+  this.endPointService.createPixPayment(orderData)
+    .subscribe((response: any) => {
+
+      this.pagbankData = {
+        paymentUrl: response.links?.find((l: any) => l.rel === 'PAY')?.href || '',
+        qrCode: response.qr_codes?.[0]?.text || '',
+        qrPng: response.qr_codes?.[0]?.links?.find((l: any) => l.rel === 'QRCODE.PNG')?.href || ''
+      };
+
+      this.chargeId = response.id;
+
+      this.paymentStatus = 'pending';
+      this.isLoading = false;
     });
-  }
+}
+
+
 
   /**
    * Simulação de verificação do status de pagamento (Polling).
@@ -110,12 +101,13 @@ export class FinalizarCompra implements OnInit {
    * Método para copiar o código PIX para a área de transferência.
    */
   copyPixCode(): void {
-    if (this.picpayData?.qrCode) {
-      navigator.clipboard.writeText(this.picpayData.qrCode).then(() => {
+    if (this.pagbankData?.qrCode) {
+      navigator.clipboard.writeText(this.pagbankData.qrCode).then(() => {
         alert('Código PIX Copiado!');
       }).catch(err => {
         console.error('Falha ao copiar:', err);
       });
     }
   }
+
 }
