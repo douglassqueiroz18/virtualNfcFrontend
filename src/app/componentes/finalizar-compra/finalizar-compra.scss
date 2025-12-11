@@ -1,8 +1,9 @@
-$primary-color: #1ed760; // Cor do PicPay (ou sua cor primária)
-$secondary-color: #f7f7f7;
-$text-color: #333;
-$danger-color: #dc3545;
-$success-color: #28a745;
+  $primary-color: #1ed760;
+  $secondary-color: #f7f7f7;
+  $text-color: #333;
+  $danger-color: #dc3545;
+  $success-color: #28a745;
+
 
 .checkout-wrapper {
   display: flex;
@@ -17,18 +18,68 @@ $success-color: #28a745;
     padding: 1.5rem;
   }
 }
+@keyframes brightness-pulse {
+  0% {
+    scale: 1.1;
+    filter: brightness(130%);
+  }
+  10% {
+    scale: 1;
+    filter: brightness(100%);
+  }
+}
+header {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(90deg, #757474, #5a5a5a, #cec6c6);
+  background-size: 200% 200%;
+  animation: headerMove 6s ease-in-out infinite;
+  border-bottom: 1px solid #a4a6ac;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
+ h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    animation: headerFadeIn 1s ease forwards;
+  }
+}
+@keyframes headerMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes bgMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .checkout-card {
   background: #fff;
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
+  max-width: 350px;
+  width: 80%;
   text-align: center;
 
   h1 {
-    color: $text-color;
+    color: text;
     margin-bottom: 1rem;
     font-size: 1.8rem;
   }
@@ -72,8 +123,8 @@ $success-color: #28a745;
   align-items: center;
 
   .qr-box {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 80px;
     background-color: #000;
     color: #fff;
     display: flex;
@@ -83,7 +134,16 @@ $success-color: #28a745;
     margin: 1rem 0;
     border-radius: 4px;
   }
-
+  .qr-image {
+    width: 200px;   // ajuste aqui
+    height: 200px;  // opcional, pode remover se quiser manter proporção
+  }
+  .qr-code-text {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    word-break: break-all;
+    color: $text-color;
+  }
   .pix-link {
     margin-top: 0.5rem;
     font-size: 0.9rem;
@@ -144,7 +204,9 @@ $success-color: #28a745;
     cursor: not-allowed;
   }
 }
-
+.btn-primary:hover {
+  animation: brightness-pulse 0.10s ease-in-out;
+}
 .btn-copy {
   background-color: #6c757d;
   width: 100%;

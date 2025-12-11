@@ -1,9 +1,16 @@
 <div class="view-wrapper" *ngIf="!loading && page && page.payload">
   <div class="card">
-<button class="buy-top-button" (click)="onBuyClick()">
-  <i class="ri-shopping-cart-2-line"></i>
-  Adquirir
-</button>
+<div class="top-buttons">
+  <button class="top-btn" (click)="onBuyClick()">
+    <i class="ri-shopping-cart-2-line"></i>
+    Adquirir
+  </button>
+
+  <button class="top-btn" (click)="onEditClick()">
+    <i class="ri-edit-2-line"></i>
+    Editar Dados
+  </button>
+</div>
 <div *ngIf="remainingSeconds > 0" class="timer-wrapper">
   <div class="timer-box">
     <span class="timer-label">Expira em</span>

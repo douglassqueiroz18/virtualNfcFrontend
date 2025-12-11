@@ -18,7 +18,8 @@ export class endPointService {
   private baseUrlDeleteProduct = 'http://localhost:8080/api/products/delete';
   private baseUrlGetProductById = 'http://localhost:8080/api/products/get';
   private baseUrlpagbank = 'http://localhost:8080/api/pagbank';
-
+  private baseUrlUpdatePage = 'http://localhost:8080/api/pages/update';
+  private baseUrlGetPageByIdPrototipo = 'http://localhost:8080/api/pages/prototipo/get';
   constructor(private http: HttpClient) {}
 
   createPagePrototipo(dto: any): Observable<number> {
@@ -89,10 +90,15 @@ checkPrototipo(id: number): Observable<any> {
   getProductById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrlGetProductById}/${id}`);
   }
-
+  getPageById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrlGetPageByIdPrototipo}/${id}`);
+  }
   // Atualizar produto
   updateProduct(id: number, dto: any): Observable<any> {
     return this.http.put(`${this.baseUrlUpdateProduct}/${id}`, dto);
+  }
+  updatePaginaPrototipo(id: number, dto: any) {
+    return this.http.put(`${this.baseUrlUpdatePage}/${id}`, dto);
   }
 
 deleteProduct(id: number): Observable<HttpResponse<any>> {

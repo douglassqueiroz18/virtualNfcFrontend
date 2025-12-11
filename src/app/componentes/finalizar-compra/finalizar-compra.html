@@ -1,6 +1,9 @@
+<header>
+  <h1>🛒 Finalização do Pedido</h1>
+
+</header>
 <div class="checkout-wrapper">
   <div class="checkout-card">
-    <h1>🛒 Finalização do Pedido</h1>
 
     <div class="order-summary">
       <p>Item: {{ productName }}</p>
@@ -17,12 +20,8 @@
       ❌ **Erro ao processar pagamento.** Tente novamente ou entre em contato.
     </div>
 
-    <button
-      *ngIf="paymentStatus === 'initial' || paymentStatus === 'error'"
-      class="btn-primary"
-      (click)="generatePixPayment()"
-      [disabled]="isLoading"
-    >
+    <button *ngIf="paymentStatus === 'initial' || paymentStatus === 'error'" class="btn-primary"
+      (click)="generatePixPayment()" [disabled]="isLoading">
       {{ isLoading ? 'Gerando PIX...' : 'Gerar Pagamento PIX' }}
     </button>
 
@@ -35,19 +34,11 @@
       <p>Use seu aplicativo PicPay ou outro banco para escanear o código:</p>
 
       <div class="pix-qr-code">
-        <img *ngIf="pagbankData.qrPng"
-            [src]="pagbankData.qrPng"
-            alt="QR Code PIX"
-            class="qr-image">
+        <img *ngIf="pagbankData.qrPng" [src]="pagbankData.qrPng" alt="QR Code PIX" class="qr-image">
 
-        <p class="qr-code-text">{{ pagbankData.qrCode }}</p>
 
-        <div class="pix-link">
-          Ou clique para pagar:
-          <a [href]="pagbankData.paymentUrl" target="_blank">Abrir App PicPay</a>
-        </div>
 
-        <p class="mt-3">Se preferir, use o código Pix Copia e Cola:</p>
+
         <button class="btn-primary btn-copy" (click)="copyPixCode()">
           📋 Copiar Código PIX
         </button>

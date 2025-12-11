@@ -6,9 +6,9 @@
   padding: 30px;
   border-radius: 22px;
   backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.12);
+  mask-image: linear-gradient(var(--direction), rgba(0,0,0,1) 40%, rgba(0,0,0,0) 60%);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
-  color: rgb(131, 123, 123);
+  mask-image: linear-gradient(var(--direction), rgba(0,0,0,1) 40%, rgba(0,0,0,0) 60%);
   text-align: center;
   animation: fadeUp 0.7s ease forwards;
 }

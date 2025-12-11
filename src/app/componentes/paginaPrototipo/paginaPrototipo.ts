@@ -102,6 +102,14 @@ export class paginaVisualizacao implements OnInit {
 onBuyClick() {
   this.router.navigate(['/comprar']);
 }
+
+onEditClick() {
+  if (!this.page?.id) {
+    console.warn("Nenhum ID encontrado para edição.");
+    return;
+  }
+
+  this.router.navigate(['/cliente-edita-cartao', this.page.id]);
 }
 
-
+}

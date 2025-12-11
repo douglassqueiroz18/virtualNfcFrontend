@@ -1,6 +1,7 @@
 
 export interface PageData {
 type: 'social' | 'endereco' | 'custom';
+id: number;
   payload: {
     nomeCartao?: string;
     instagram?: string;

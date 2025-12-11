@@ -1,0 +1,58 @@
+<body>
+  <div class="page-wrapper">
+    <button class="back-btn" type="button" (click)="goBack()">
+      Voltar à Visualização
+    </button>
+    <div class="edit-card">
+      <h1 class="title">Editar Cartão</h1>
+
+      <form class="edit-form" (ngSubmit)="savePage()">
+
+        <div class="form-group">
+          <label>Nome do Cartão</label>
+          <input type="text" [(ngModel)]="currentPage.nomeCartao" name="nomeCartao"
+                 placeholder="Digite o nome" />
+        </div>
+
+        <div class="form-group">
+          <label>Instagram</label>
+          <input type="text" [(ngModel)]="currentPage.instagram" name="instagram"
+                 placeholder="https://instagram.com/seuuser" />
+        </div>
+
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="text" [(ngModel)]="currentPage.whatsapp" name="whatsapp"
+                 placeholder="https://wa.me/55xxxxxxxxx" />
+        </div>
+
+        <div class="form-group">
+          <label>Facebook</label>
+          <input type="text" [(ngModel)]="currentPage.facebook" name="facebook"
+                 placeholder="https://facebook.com/seuuser" />
+        </div>
+
+        <div class="form-group">
+          <label>LinkedIn</label>
+          <input type="text" [(ngModel)]="currentPage.linkedin" name="linkedin"
+                 placeholder="https://linkedin.com/in/seuuser" />
+        </div>
+
+        <div class="form-group">
+          <label>YouTube</label>
+          <input type="text" [(ngModel)]="currentPage.youtube" name="youtube"
+                 placeholder="https://youtube.com/@seucanal" />
+        </div>
+
+        <div class="form-group">
+          <label>Site</label>
+          <input type="text" [(ngModel)]="currentPage.site" name="site"
+                 placeholder="https://seusite.com" />
+        </div>
+
+        <button class="save-btn" type="submit">Salvar Alterações</button>
+      </form>
+    </div>
+
+  </div>
+</body>

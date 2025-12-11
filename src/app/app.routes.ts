@@ -6,6 +6,7 @@ import { Comprar } from './componentes/comprar/comprar';
 import { CardsComponent } from './componentes/cards/cards';
 import { AdmProdutos } from './componentes/adm-produtos/adm-produtos';
 import { FinalizarCompra } from './componentes/finalizar-compra/finalizar-compra';
+import { ClienteEditaCartao } from './componentes/cliente-edita-cartao/cliente-edita-cartao';
 
 export const routes: Routes = [
   {
@@ -37,8 +38,12 @@ export const routes: Routes = [
     path: 'adm-produtos',
     component: AdmProdutos,
   },
-    {
+  {
     path: 'finalizar-compra',
     component: FinalizarCompra,
+  },
+  {
+    path: 'cliente-edita-cartao/:id',
+    component: ClienteEditaCartao,
   }
 ];
