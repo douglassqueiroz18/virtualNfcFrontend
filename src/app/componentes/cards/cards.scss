@@ -139,7 +139,21 @@ $danger: #ff4d4d;
     }
   }
 }
+.copy-btn {
+  margin-left: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  background: #1ed760;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  transition: 0.2s;
 
+  &:hover {
+    background: #17b650;
+  }
+}
 // ANIMAÇÕES BONITAS
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

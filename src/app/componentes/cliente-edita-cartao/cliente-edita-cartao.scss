@@ -1,7 +1,10 @@
+
 .page-wrapper {
   display: flex;
   justify-content: center;
   padding: 40px;
+  background: linear-gradient(90deg, #636464, #f1f1f1);
+
 }
 
 .edit-card {
@@ -31,7 +34,7 @@
   font-size: 2.6rem;
   text-align: center;
   font-weight: 700;
-  background: linear-gradient(90deg, #87ceeb, #ffffff);
+  background: linear-gradient(90deg, #0d0d0e, #696868);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 25px;
@@ -55,7 +58,7 @@ input {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(0, 0, 0, 0.25);
-  color: white;
+  color: rgb(17, 17, 17);
   font-size: 1rem;
   backdrop-filter: blur(6px);
   transition: 0.25s;
@@ -107,4 +110,26 @@ input {
   .save-btn {
     font-size: 1rem;
   }
+  .form-group {
+  margin-bottom: 20px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  margin: 10px 0;
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.preview {
+  margin-top: 10px;
+  width: 100%;
+  height: 70px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
 }

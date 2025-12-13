@@ -20,6 +20,8 @@ export class endPointService {
   private baseUrlpagbank = 'http://localhost:8080/api/pagbank';
   private baseUrlUpdatePage = 'http://localhost:8080/api/pages/update';
   private baseUrlGetPageByIdPrototipo = 'http://localhost:8080/api/pages/prototipo/get';
+  private baseLogin = 'http://localhost:8080/api/auth/login';
+  private baseAcessarPagina = 'http://localhost:8080/api/pages/access';
   constructor(private http: HttpClient) {}
 
   createPagePrototipo(dto: any): Observable<number> {
@@ -45,7 +47,8 @@ getPageByIdPrototipo(id: number): Observable<PageData> {
             facebook: page.facebook ?? '',
             linkedin: page.linkedin ?? '',
             youtube: page.youtube ?? '',
-            site: page.site ?? ''
+            site: page.site ?? '',
+            backgroundColor: page.backgroundColor ?? '#263242'
           }
         };
       }
@@ -91,13 +94,13 @@ checkPrototipo(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrlGetProductById}/${id}`);
   }
   getPageById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrlGetPageByIdPrototipo}/${id}`);
+    return this.http.get<any>(`${this.baseUrlGetPageById}/${id}`);
   }
   // Atualizar produto
   updateProduct(id: number, dto: any): Observable<any> {
     return this.http.put(`${this.baseUrlUpdateProduct}/${id}`, dto);
   }
-  updatePaginaPrototipo(id: number, dto: any) {
+  updatePagina(id: number, dto: any) {
     return this.http.put(`${this.baseUrlUpdatePage}/${id}`, dto);
   }
 
@@ -115,4 +118,15 @@ deleteProduct(id: number): Observable<HttpResponse<any>> {
   checkStatus(chargeId: string): Observable<any> {
     return this.http.get(`${this.baseUrlpagbank}/pix/${chargeId}`);
   }
+  getPublicKey(): Observable<any> {
+  return this.http.get(`${this.baseUrlpagbank}/public-key`);
+  }
+  login(body: { email: string; password: string }) {
+    return this.http.post(`${this.baseLogin}`, body);
+  }
+  acessarPagina(serialKey: string) {
+    return this.http.get(`${this.baseAcessarPagina}/${serialKey}`);
+  }
+
+
 }
