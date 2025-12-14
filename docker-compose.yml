@@ -1,8 +1,14 @@
-frontend:
-  build: .
-  ports:
-    - "80:80"
+version: "3.9"
 
-backend:
-  environment:
-    FRONTEND_URL: "http://[2a02:4780:14:7d07::1]"
+services:
+  frontend:
+    build: .
+    container_name: frontend-app
+    ports:
+      - "80:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
