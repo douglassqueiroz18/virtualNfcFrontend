@@ -26,6 +26,10 @@
         <p><strong>TikTok:</strong> {{ card.tiktok }}</p>
         <p><strong>YouTube:</strong> {{ card.youtube }}</p>
         <p><strong>Site:</strong> {{ card.site }}</p>
+        <p><strong>Serial-key: </strong>{{card.serialKey}}</p>
+        <button class="copy-btn" (click)="copySerial(card.serialKey)">
+          📋 Copiar
+        </button>
       </div>
 
       <div class="actions">

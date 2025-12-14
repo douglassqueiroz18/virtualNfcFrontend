@@ -60,5 +60,13 @@ deleteCard(id: number) {
   });
   this.loadCards();
 }
-
+copySerial(serial: string) {
+  navigator.clipboard.writeText(serial)
+    .then(() => {
+      alert("Serial copiada!");
+    })
+    .catch(() => {
+      alert("Erro ao copiar.");
+    });
+}
 }

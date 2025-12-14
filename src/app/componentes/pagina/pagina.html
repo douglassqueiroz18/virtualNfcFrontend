@@ -1,6 +1,7 @@
-<div class="view-wrapper" *ngIf="!loading && page && page.payload">
-  <div class="card">
-<div class="top-buttons">
+<div class="view-wrapper" *ngIf="!loading && page && page.payload" [ngStyle]="wrapperStyle">
+  <div class="card"
+   >
+<!--<div class="top-buttons">
   <button class="top-btn" (click)="onBuyClick()">
     <i class="ri-shopping-cart-2-line"></i>
     Adquirir
@@ -16,7 +17,7 @@
     <span class="timer-label">Expira em</span>
     <span class="timer-value">{{ formatTime(remainingSeconds) }}</span>
   </div>
-</div>
+</div>-->
 
 
 

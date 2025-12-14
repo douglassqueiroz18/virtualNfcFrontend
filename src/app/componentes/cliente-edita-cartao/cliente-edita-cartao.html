@@ -1,58 +1,98 @@
-<body>
-  <div class="page-wrapper">
-    <button class="back-btn" type="button" (click)="goBack()">
-      Voltar à Visualização
-    </button>
-    <div class="edit-card">
-      <h1 class="title">Editar Cartão</h1>
+<div class="page-wrapper">
+  <div class="edit-card">
+    <h1 class="title">Editar Cartão</h1>
 
-      <form class="edit-form" (ngSubmit)="savePage()">
+    <form class="edit-form" (ngSubmit)="savePage()">
+    <div class="form-group">
+  <label>Tipo de Fundo</label>
 
-        <div class="form-group">
-          <label>Nome do Cartão</label>
-          <input type="text" [(ngModel)]="currentPage.nomeCartao" name="nomeCartao"
-                 placeholder="Digite o nome" />
-        </div>
+  <div class="radio-group">
+    <label>
+      <input type="radio" [(ngModel)]="bgType" name="bgType" value="solid" />
+      Cor Sólida
+    </label>
 
-        <div class="form-group">
-          <label>Instagram</label>
-          <input type="text" [(ngModel)]="currentPage.instagram" name="instagram"
-                 placeholder="https://instagram.com/seuuser" />
-        </div>
-
-        <div class="form-group">
-          <label>WhatsApp</label>
-          <input type="text" [(ngModel)]="currentPage.whatsapp" name="whatsapp"
-                 placeholder="https://wa.me/55xxxxxxxxx" />
-        </div>
-
-        <div class="form-group">
-          <label>Facebook</label>
-          <input type="text" [(ngModel)]="currentPage.facebook" name="facebook"
-                 placeholder="https://facebook.com/seuuser" />
-        </div>
-
-        <div class="form-group">
-          <label>LinkedIn</label>
-          <input type="text" [(ngModel)]="currentPage.linkedin" name="linkedin"
-                 placeholder="https://linkedin.com/in/seuuser" />
-        </div>
-
-        <div class="form-group">
-          <label>YouTube</label>
-          <input type="text" [(ngModel)]="currentPage.youtube" name="youtube"
-                 placeholder="https://youtube.com/@seucanal" />
-        </div>
-
-        <div class="form-group">
-          <label>Site</label>
-          <input type="text" [(ngModel)]="currentPage.site" name="site"
-                 placeholder="https://seusite.com" />
-        </div>
-
-        <button class="save-btn" type="submit">Salvar Alterações</button>
-      </form>
-    </div>
-
+    <label>
+      <input type="radio" [(ngModel)]="bgType" name="bgType" value="gradient" />
+      Gradiente
+    </label>
   </div>
-</body>
+</div>
+
+<!-- Cor sólida -->
+<div class="form-group" *ngIf="bgType === 'solid'">
+  <label>Cor</label>
+  <input type="color" [(ngModel)]="backgroundColor1" name="backgroundColor1" />
+
+  <div
+    class="preview"
+    [style.background]="backgroundColor1"
+  ></div>
+</div>
+
+<!-- Gradiente -->
+<div class="form-group" *ngIf="bgType === 'gradient'">
+  <label>Cor Inicial</label>
+  <input type="color" [(ngModel)]="backgroundColor1" name="backgroundColor1" />
+
+  <label>Cor Final</label>
+  <input type="color" [(ngModel)]="backgroundColor2" name="backgroundColor2" />
+
+  <div
+    class="preview"
+    [style.background]="
+      'linear-gradient(135deg, ' + backgroundColor1 + ', ' + backgroundColor2 + ')'
+    "
+  ></div>
+</div>
+<!-- Upload Logo -->
+<div class="form-group">
+  <label>Logo do Cartão</label>
+
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onLogoSelected($event)"
+  />
+
+
+</div>
+      <div class="form-group">
+        <label>Nome do Cartão</label>
+        <input type="text" [(ngModel)]="currentPage.nomeCartao" name="nomeCartao" />
+      </div>
+
+      <div class="form-group">
+        <label>Instagram (usuário)</label>
+        <input type="text" [(ngModel)]="instagramUser" name="instagramUser" placeholder="seuuser" />
+      </div>
+
+      <div class="form-group">
+        <label>WhatsApp (somente número)</label>
+        <input type="text" [(ngModel)]="whatsappNumber" name="whatsappNumber" placeholder="55xxxxxxxxxx" />
+      </div>
+
+      <div class="form-group">
+        <label>Facebook (usuário)</label>
+        <input type="text" [(ngModel)]="facebookUser" name="facebookUser" placeholder="seuuser" />
+      </div>
+
+      <div class="form-group">
+        <label>LinkedIn (usuário)</label>
+        <input type="text" [(ngModel)]="linkedinUser" name="linkedinUser" placeholder="seuuser" />
+      </div>
+
+      <div class="form-group">
+        <label>YouTube (usuário ou canal)</label>
+        <input type="text" [(ngModel)]="youtubeUser" name="youtubeUser" placeholder="@seucanal" />
+      </div>
+
+      <div class="form-group">
+        <label>Site (somente domínio)</label>
+        <input type="text" [(ngModel)]="siteDomain" name="siteDomain" placeholder="seusite.com" />
+      </div>
+
+      <button class="save-btn" type="submit">Salvar Alterações</button>
+    </form>
+  </div>
+</div>

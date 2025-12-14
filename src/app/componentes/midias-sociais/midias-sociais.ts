@@ -102,7 +102,7 @@ verPrototipo(card?: any) {
     return;
   }
 
-  window.open(`/paginaPrototipo/${numericId}`, '_blank');
+  window.open(`/pagina/${numericId}`, '_blank');
 }
 
 

@@ -6,8 +6,8 @@ import { endPointService } from '../../endpointsService';
 
 @Component({
   selector: 'pagina-visualizacao',
-  templateUrl: './paginaPrototipo.html',
-  styleUrls: ['./paginaPrototipo.scss'],
+  templateUrl: './pagina.html',
+  styleUrls: ['./pagina.scss'],
   standalone: true,
   imports: [CommonModule],
 })
@@ -51,7 +51,8 @@ export class paginaVisualizacao implements OnInit {
       this.loading = false;
     }
   });
-  // 2) Em paralelo, verifica protótipo
+
+ /* // 2) Em paralelo, verifica protótipo
     this.pageService.checkPrototipo(numericId).subscribe({
       next: (res) => {
         console.log("🟡 CHECK:", res);
@@ -110,6 +111,25 @@ onEditClick() {
   }
 
   this.router.navigate(['/cliente-edita-cartao', this.page.id]);
+  */
+}
+get wrapperStyle() {
+  const payload = this.page?.payload;
+  if (!payload) return {};
+
+  const mode = payload.backgroundMode ?? 'solid';
+  const color1 = payload.backgroundColor ?? '#263242';
+  const color2 = payload.backgroundColor2 ?? '#1a222d';
+
+  if (mode === 'solid') {
+    return { background: color1 };
+  }
+
+  if (mode === 'gradient') {
+    return { background: `linear-gradient(135deg, ${color1}, ${color2})` };
+  }
+
+  return {};
 }
 
 }
