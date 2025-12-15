@@ -6,22 +6,31 @@ import { PageData } from './services/pagePrototipo.service';
 @Injectable({ providedIn: 'root' })
 export class endPointService {
 
-  private baseUrl = 'http://localhost:8080/api/pages';
-  private baseUrlGetAllCards = 'http://localhost:8080/api/pages/all';
-  private baseUrlDeleteCard = 'http://localhost:8080/api/pages/delete';
-  private baseUrlCreatePage = 'http://localhost:8080/api/pages/create';
-  private baseUrlGetPageById = 'http://localhost:8080/api/pages/get';
-  private baseUrlCheckPrototipo = 'http://localhost:8080/api/pages/prototipo/check';
-  private baseUrlUpdateProduct = 'http://localhost:8080/api/products/update';
-  private baseUrlGetAllProducts = 'http://localhost:8080/api/products/all';
-  private baseUrlCreateProduct = 'http://localhost:8080/api/products/create';
-  private baseUrlDeleteProduct = 'http://localhost:8080/api/products/delete';
-  private baseUrlGetProductById = 'http://localhost:8080/api/products/get';
-  private baseUrlpagbank = 'http://localhost:8080/api/pagbank';
-  private baseUrlUpdatePage = 'http://localhost:8080/api/pages/update';
-  private baseUrlGetPageByIdPrototipo = 'http://localhost:8080/api/pages/prototipo/get';
-  private baseLogin = 'http://localhost:8080/api/auth/login';
-  private baseAcessarPagina = 'http://localhost:8080/api/pages/access';
+  private baseUrl = import.meta.env.VITE_API_BASE_URL + '/pages';
+  private baseUrlGetAllCards = this.baseUrl + '/all';
+  private baseUrlDeleteCard = this.baseUrl + '/delete';
+  private baseUrlCreatePage = this.baseUrl + '/create';
+  private baseUrlGetPageById = this.baseUrl + '/get';
+  private baseUrlCheckPrototipo = this.baseUrl + '/prototipo/check';
+  private baseUrlUpdatePage = this.baseUrl + '/update';
+  private baseUrlGetPageByIdPrototipo = this.baseUrl + '/prototipo/get';
+  private baseAcessarPagina = this.baseUrl + '/access';
+
+  // Products
+  private baseProductUrl = import.meta.env.VITE_API_BASE_URL + '/products';
+  private baseUrlUpdateProduct = this.baseProductUrl + '/update';
+  private baseUrlGetAllProducts = this.baseProductUrl + '/all';
+  private baseUrlCreateProduct = this.baseProductUrl + '/create';
+  private baseUrlDeleteProduct = this.baseProductUrl + '/delete';
+  private baseUrlGetProductById = this.baseProductUrl + '/get';
+
+  // PagBank
+  private basePagBankUrl = import.meta.env.VITE_API_BASE_URL + '/pagbank';
+  private baseUrlpagbank = this.basePagBankUrl;
+
+  // Auth
+  private baseLogin = import.meta.env.VITE_API_BASE_URL + '/auth/login';
+
   constructor(private http: HttpClient) {}
 
   createPagePrototipo(dto: any): Observable<number> {
