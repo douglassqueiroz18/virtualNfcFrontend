@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL} # precisa ter VITE_ no nome
     container_name: frontend-app
     ports:
       - "80:80"
