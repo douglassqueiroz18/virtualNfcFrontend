@@ -18,7 +18,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copia o build do frontend
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/virtualNfcFrontend/* /usr/share/nginx/html/
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
