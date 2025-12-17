@@ -14,10 +14,14 @@ RUN npm run build
 # ===== runtime =====
 FROM nginx:alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+ENV BACKEND_URL=http://dev_backend_1:8080/api/
 
-# Copia APENAS o conteúdo estático final
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/dist/virtualNfcFrontend/browser/ /usr/share/nginx/html/
 
+CMD envsubst '$BACKEND_URL' \
+    < /etc/nginx/templates/default.conf.template \
+    > /etc/nginx/conf.d/default.conf \
+    && nginx -g 'daemon off;'
+
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
