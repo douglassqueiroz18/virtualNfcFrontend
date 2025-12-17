@@ -5,8 +5,10 @@ services:
     build:
       context: .
       args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL} # precisa ter VITE_ no nome
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
     container_name: frontend-app
+    env_file:
+      - .env.dev
     ports:
       - "80:80"
     networks:
