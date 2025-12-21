@@ -13,7 +13,7 @@ RUN npm run build
 # ===== runtime =====
 FROM nginx:alpine
 
-ENV BACKEND_URL=http://dev_backend:8080/api/
+ENV BACKEND_URL=http://backend:8080/api/
 
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/dist/virtualNfcFrontend/browser/ /usr/share/nginx/html/

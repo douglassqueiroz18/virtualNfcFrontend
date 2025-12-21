@@ -2,11 +2,13 @@ version: "3.9"
 
 services:
   frontend:
-    image: 06887922193/novaloja-frontend:1.0.0
+    image: novaloja-frontend
+    container_name: frontend
+
     build:
       context: ./frontend/virtualNfcFrontend
     env_file:
-      - .env.dev
+      - .env.prod
     ports:
       - "4200:80"
     depends_on:
