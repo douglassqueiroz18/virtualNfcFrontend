@@ -1,3 +1,4 @@
+import { environment } from './../../environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
@@ -6,7 +7,7 @@ import { PageData } from './services/pagePrototipo.service';
 @Injectable({ providedIn: 'root' })
 export class endPointService {
 
-  private baseUrl = import.meta.env.VITE_API_BASE_URL + '/pages';
+  private baseUrl = environment.apiBaseUrl + '/pages';
   private baseUrlGetAllCards = this.baseUrl + '/all';
   private baseUrlDeleteCard = this.baseUrl + '/delete';
   private baseUrlCreatePage = this.baseUrl + '/create';
@@ -17,7 +18,7 @@ export class endPointService {
   private baseAcessarPagina = this.baseUrl + '/access';
 
   // Products
-  private baseProductUrl = import.meta.env.VITE_API_BASE_URL + '/products';
+  private baseProductUrl = environment + '/products';
   private baseUrlUpdateProduct = this.baseProductUrl + '/update';
   private baseUrlGetAllProducts = this.baseProductUrl + '/all';
   private baseUrlCreateProduct = this.baseProductUrl + '/create';
@@ -25,11 +26,11 @@ export class endPointService {
   private baseUrlGetProductById = this.baseProductUrl + '/get';
 
   // PagBank
-  private basePagBankUrl = import.meta.env.VITE_API_BASE_URL + '/pagbank';
+  private basePagBankUrl = environment + '/pagbank';
   private baseUrlpagbank = this.basePagBankUrl;
 
   // Auth
-  private baseLogin = import.meta.env.VITE_API_BASE_URL + '/auth/login';
+  private baseLogin = environment + '/auth/login';
 
   constructor(private http: HttpClient) {}
 

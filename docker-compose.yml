@@ -2,17 +2,18 @@ version: "3.9"
 
 services:
   frontend:
+    image: 06887922193/novaloja-frontend:1.0.0
     build:
-      context: .
-      args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
-    container_name: frontend-app
+      context: ./frontend/virtualNfcFrontend
     env_file:
       - .env.dev
     ports:
-      - "80:80"
+      - "4200:80"
+    depends_on:
+      - backend
     networks:
       - app-net
+
 
 networks:
   app-net:
