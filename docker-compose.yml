@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frontend:
-    image: novaloja-frontend
+    image: 06887922193/novaloja-frontend
     container_name: frontend
 
     build:
